@@ -1,7 +1,3 @@
-## zoom link for meeting
-
-[https://gmu.zoom.us/j/7362431377](https://gmu.zoom.us/j/7362431377)
-
 ## The instructions:
 
 Go into gradescope for project deliverable 1
