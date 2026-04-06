@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "Coca-Cola Original",
+        "price": 2.99,
+        "quantity": 26,
+        "description": "Enjoy the crisp and refreshing taste of Coca-Cola Original. This classic flavor is perfect for any occasion, whether you're celebrating, relaxing, or spending time with loved ones. Make any moment better with a soda that's always delicious and always iconic. ",
+        "image-url": "https://www.coca-cola.com/content/dam/onexp/us/en/brands/coca-cola-original/en_coca-cola-original-taste-20-oz_750x750_v1.jpg/width2674.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Diet Coke",
+        "price": 2.99,
+        "quantity": 33,
+        "description": "It's the one and only Diet Coke®. It's your everyday hero. Your deliciously fizzy go-to companion. It might have a brand new look, but it's the same Diet Coke® you know and love. Oh yeah, and it's incredibly refreshing. Always.",
+        "image-url": "https://www.coca-cola.com/content/dam/onexp/us/en/brands/diet-coke/en_diet%20coke_prod_original_en_diet%20coke_prod_caffeine%20free_750x750_v1.jpg/width2674.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Pepsi",
+        "price": 2.99,
+        "quantity": 47,
+        "description": "",
+        "image-url": "https://www.pepsi.com/prod/s3fs-public/2026-01/product_image_pepsi_0.png"
+    },
+    {
+        "id": 4,
+        "name": "Diet Pepsi",
+        "price": 2.99,
+        "quantity": 22,
+        "description": "",
+        "image-url": "https://www.pepsi.com/prod/s3fs-public/2026-01/product_image_pepsi_diet_0.png"
+    },
+    {
+        "id": 5,
+        "name": "Lay's Classic",
+        "price": 2.49,
+        "quantity": 63,
+        "description": "The classic recipe from Herman Lay: real potatoes, oil and salt - perfected over 80 years and still used today.",
+        "image-url": "https://cms.lays.com/sites/lays.com/files//2025-12/Lays_XL_Classic_Laydown.png"
+    },
+    {
+        "id": 6,
+        "name": "Baked Lay's Classic",
+        "price": 3.29,
+        "quantity": 27,
+        "description": "Made with our signature baking process for a deliciously crispy and light crunch, our crisps are never fried and baked with olive oil, which means 50% less fat — sprinkled with sea salt for the perfect classic taste.",
+        "image-url": "https://cms.lays.com/sites/lays.com/files//2026-02/00028400183826_original-2026_0.png"
+    }
+]
