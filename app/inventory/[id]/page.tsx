@@ -1,16 +1,15 @@
-"use client";
-
-import * as React from 'react';
-import inventory from '../../../public/inventory.json';
+import React from 'react';
 import { Container, Typography, Box, Button } from '@mui/material';
-import { useParams } from 'next/navigation';
 import ProductModifierButton, {ModifierType} from '@/components/productModifierButton';
 
-export default function ItemPage() {
-    const { itemId } = useParams();
-    const productId = (itemId as string).split("-")[1];
-    const product = inventory.find(p => p.id === Number(productId));
-    var productQuantity = Number(product?.quantity);
+
+
+export default async function ItemPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`, {
+        cache: 'no-store'
+    });
+    const product = await res.json();
 
     return (
         <React.Fragment>
@@ -35,11 +34,11 @@ export default function ItemPage() {
 
                 <Container disableGutters sx={{display: 'flex', marginTop: 4, gap: 2}}>
                     <Typography variant="h4">
-                        Current Quantity: {productQuantity}
+                        Current Quantity: {product.quantity}
                     </Typography>
 
-                    <ProductModifierButton id={Number(product?.id)} type={ModifierType.Increment} productQuantity={productQuantity} />
-                    <ProductModifierButton id={Number(product?.id)} type={ModifierType.Decrement} productQuantity={productQuantity} />
+                    <ProductModifierButton id={Number(product?.id)} type={ModifierType.Increment} />
+                    <ProductModifierButton id={Number(product?.id)} type={ModifierType.Decrement} />
                 </Container>
             </Container>
         </React.Fragment>

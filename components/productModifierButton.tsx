@@ -12,28 +12,27 @@ export enum ModifierType {
 interface ButtonParams {
     id: number;     // Id of the product to modify
     type: ModifierType;     // Whether we be incrementing or decrementing
-    productQuantity: number;
 }
 
-function incrementProduct(productQuantity: number) {
-    productQuantity += 1;
+function incrementProduct() {
+
 }
 
-function decrementProduct(productQuantity: number) {
-    productQuantity -= 1;
+function decrementProduct() {
+
 }
 
-export default function ProductModifierButton({ id, type, productQuantity }: ButtonParams) {
+export default function ProductModifierButton({ id, type }: ButtonParams) {
     if (type === ModifierType.Increment) {
         return (
-            <IconButton onClick={() => incrementProduct(productQuantity)}>
+            <IconButton onClick={() => incrementProduct()}>
                 <AddIcon />
             </IconButton>
         );
     }
     else if (type === ModifierType.Decrement) {
         return (
-            <IconButton onClick={() => decrementProduct(productQuantity)}>
+            <IconButton onClick={() => decrementProduct()}>
                 <RemoveIcon />
             </IconButton>
         );

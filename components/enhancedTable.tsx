@@ -22,17 +22,18 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import EditIcon from '@mui/icons-material/Edit';
 import Link from 'next/link';
-import InventoryRows from '../public/inventory.json';
-
 
 interface Data {
-  id: number;
+  _id: string;
   name: string;
   price: number;
   quantity: number;
 }
 
-const rows: Data[] = InventoryRows;
+const res = await fetch(`/api/products`, {
+  cache: 'no-store'
+});
+const rows: Data[] = await res.json();
 
 interface ButtonParams {
   href: string;     // What page the button links to
@@ -211,7 +212,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Data>('price');
-  const [selected, setSelected] = React.useState<readonly number[]>([]);
+  const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -227,16 +228,16 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
+      const newSelected = rows.map((n) => n._id);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+  const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
     const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
+    let newSelected: readonly string[] = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -260,10 +261,6 @@ export default function EnhancedTable() {
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
-  };
-
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -297,17 +294,17 @@ export default function EnhancedTable() {
             />
             <TableBody>
               {visibleRows.map((row, index) => {
-                const isItemSelected = selected.includes(row.id);
+                const isItemSelected = selected.includes(row._id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id)}
+                    onClick={(event) => handleClick(event, row._id)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={row.id}
+                    key={row._id}
                     selected={isItemSelected}
                     sx={{ cursor: 'pointer' }}
                   >
@@ -327,7 +324,7 @@ export default function EnhancedTable() {
                     </TableCell>
                     <TableCell align="left">{(row.price).toFixed(2)}</TableCell>
                     <TableCell align="left">{row.quantity}</TableCell>
-                    <TableCell align="right"><EditButton href={'product-' + row.id.toString()}/></TableCell>
+                    <TableCell align="right"><EditButton href={row._id}/></TableCell>
                   </TableRow>
                 );
               })}
