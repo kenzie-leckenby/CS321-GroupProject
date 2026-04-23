@@ -1,7 +1,5 @@
-import { ObjectId } from 'mongodb';
-
 export interface Product {
-    _id: ObjectId;
+    _id: String;
     name: String;
     price: Number;
     quantity: Number;

@@ -1,8 +1,7 @@
-import { ObjectId } from 'mongodb';
 import { Product } from '@/lib/productInterface';
 
 interface getProductParams {
-    id: ObjectId;
+    id: String;
 }
 
 /**
@@ -29,7 +28,7 @@ export async function getAllProducts(): Promise<Product[]> {
 }
 
 interface setNameProductParams {
-    id: ObjectId;
+    id: String;
     newName: String;
     onUpdate?: (newName: String) => void;
 }
@@ -55,7 +54,7 @@ export async function setNameProduct({ id, newName, onUpdate }: setNameProductPa
 
 
 interface setDescriptionProduct {
-    id: ObjectId;
+    id: String;
     newDescription: String;
     onUpdate?: (newDescription: String) => void;
 }
@@ -81,7 +80,7 @@ export async function setDescriptionProduct({ id, newDescription, onUpdate }: se
 
 
 interface setPriceProduct {
-    id: ObjectId;
+    id: String;
     newPrice: Number;
     onUpdate?: (newPrice: Number) => void;
 }
@@ -107,7 +106,7 @@ export async function setPriceProduct({ id, newPrice, onUpdate }: setPriceProduc
 
 
 interface incrementProductParams {
-    id: ObjectId;
+    id: String;
     onUpdate?: (newQuantity: Number) => void;
 }
 
@@ -129,7 +128,7 @@ export async function incrementProduct({ id, onUpdate }: incrementProductParams)
 
 
 interface decrementProductParams {
-    id: ObjectId;
+    id: String;
     onUpdate?: (newQuantity: Number) => void;
 }
 
@@ -151,7 +150,7 @@ export async function decrementProduct({ id, onUpdate }: decrementProductParams)
 
 
 interface setQuantityProductParams {
-    id: ObjectId,
+    id: String,
     newQuantity: Number,
     onUpdate?: (newQuantity: Number) => void;
 }
@@ -177,7 +176,7 @@ export async function setQuantityProduct({ id, newQuantity, onUpdate }: setQuant
 
 
 interface setImageUrlProduct {
-    id: ObjectId;
+    id: String;
     newImageUrl: String;
     onUpdate?: (newImageUrl: String) => void;
 }
