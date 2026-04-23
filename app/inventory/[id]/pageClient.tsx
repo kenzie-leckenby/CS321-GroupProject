@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Container, Typography, Box, TextField } from '@mui/material';
-import ProductModifierButton, {ModifierType} from '@/components/productModifierButton';
+import { Container, Typography, Box, TextField, IconButton } from '@mui/material';
 import { Product } from '@/lib/productInterface';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { decrementProduct, incrementProduct, setNameProduct } from '@/util/productFunctions';
 
 
 
@@ -33,6 +35,7 @@ export default function ItemPageClient({ product }: { product: Product }) {
                             '& .MuiInputBase-input': { fontSize: 28 },  // input text
                             '& .MuiInputLabel-root': { fontSize: 16 },  // label text
                         }}
+                        onChange={(e) => setNameProduct({id: product._id, newName: e.target.value, onUpdate: (newName) => setName(newName)})}
                     />
                 </Typography>
 
@@ -52,11 +55,17 @@ export default function ItemPageClient({ product }: { product: Product }) {
                         Current Quantity:
                     </Typography>
                     <Box sx={{display: 'flex', gap: 2}}>
-                        <ProductModifierButton id={product._id} type={ModifierType.Decrement} onUpdate={(newQuantity) => setQuantity(newQuantity)} />
+                        <IconButton onClick={() => decrementProduct({id: product._id, onUpdate: (newQuantity) => setQuantity(newQuantity)})}>
+                            <RemoveIcon />
+                        </IconButton>
+
                         <Typography variant="h4">
                             {quantity}
                         </Typography>
-                        <ProductModifierButton id={product._id} type={ModifierType.Increment} onUpdate={(newQuantity) => setQuantity(newQuantity)} />
+
+                        <IconButton onClick={() => incrementProduct({id: product._id, onUpdate: (newQuantity) => setQuantity(newQuantity)})}>
+                            <AddIcon />
+                        </IconButton>
                     </Box>
                 </Container>
             </Container>
