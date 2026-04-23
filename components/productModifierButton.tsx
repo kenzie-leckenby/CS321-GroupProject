@@ -9,7 +9,7 @@ export enum ModifierType {
 }
 
 interface ButtonParams {
-    id: ObjectId;                                   // Id of the product to modify
+    id: string;                                   // Id of the product to modify
     type: ModifierType;                             // Whether we be incrementing or decrementing
     onUpdate?: (newQuantity: number) => void;       // Value returned to the parent for updating state
 }

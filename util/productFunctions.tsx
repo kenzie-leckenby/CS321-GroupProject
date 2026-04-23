@@ -1,7 +1,7 @@
 import { Product } from '@/lib/productInterface';
 
 interface getProductParams {
-    id: String;
+    id: string;
 }
 
 /**
@@ -28,9 +28,9 @@ export async function getAllProducts(): Promise<Product[]> {
 }
 
 interface setNameProductParams {
-    id: String;
-    newName: String;
-    onUpdate?: (newName: String) => void;
+    id: string;
+    newName: string;
+    onUpdate?: (newName: string) => void;
 }
 
 /**
@@ -54,9 +54,9 @@ export async function setNameProduct({ id, newName, onUpdate }: setNameProductPa
 
 
 interface setDescriptionProduct {
-    id: String;
-    newDescription: String;
-    onUpdate?: (newDescription: String) => void;
+    id: string;
+    newDescription: string;
+    onUpdate?: (newDescription: string) => void;
 }
 
 /**
@@ -80,9 +80,9 @@ export async function setDescriptionProduct({ id, newDescription, onUpdate }: se
 
 
 interface setPriceProduct {
-    id: String;
-    newPrice: Number;
-    onUpdate?: (newPrice: Number) => void;
+    id: string;
+    newPrice: number;
+    onUpdate?: (newPrice: number) => void;
 }
 
 /**
@@ -106,8 +106,8 @@ export async function setPriceProduct({ id, newPrice, onUpdate }: setPriceProduc
 
 
 interface incrementProductParams {
-    id: String;
-    onUpdate?: (newQuantity: Number) => void;
+    id: string;
+    onUpdate?: (newQuantity: number) => void;
 }
 
 /**
@@ -128,8 +128,8 @@ export async function incrementProduct({ id, onUpdate }: incrementProductParams)
 
 
 interface decrementProductParams {
-    id: String;
-    onUpdate?: (newQuantity: Number) => void;
+    id: string;
+    onUpdate?: (newQuantity: number) => void;
 }
 
 /**
@@ -150,9 +150,9 @@ export async function decrementProduct({ id, onUpdate }: decrementProductParams)
 
 
 interface setQuantityProductParams {
-    id: String,
-    newQuantity: Number,
-    onUpdate?: (newQuantity: Number) => void;
+    id: string,
+    newQuantity: number,
+    onUpdate?: (newQuantity: number) => void;
 }
 
 /**
@@ -176,9 +176,9 @@ export async function setQuantityProduct({ id, newQuantity, onUpdate }: setQuant
 
 
 interface setImageUrlProduct {
-    id: String;
-    newImageUrl: String;
-    onUpdate?: (newImageUrl: String) => void;
+    id: string;
+    newImageUrl: string;
+    onUpdate?: (newImageUrl: string) => void;
 }
 
 /**
