@@ -32,7 +32,8 @@ export async function POST(request: Request) {
     };
 
     const result = await db.collection('products').insertOne(product);
-    return NextResponse.json(result, { status: 201 });
+    const newProduct = await db.collection('products').findOne({ _id: result.insertedId });
+    return NextResponse.json(newProduct, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to create product' }, { status: 500 });
   }
