@@ -1,5 +1,10 @@
 import { Product } from '@/lib/productInterface';
 
+interface APIError {
+    error: string;
+    status: number;
+}
+
 /**
  * Makes an API call to the database and adds the new Product.
  * @param product - The object of type `Product` that you want to add to the database.
@@ -11,6 +16,13 @@ export async function createProduct(product: Omit<Product, '_id'>): Promise<Prod
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(product)
     });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error);
+    }
+
+
     return res.json();
 }
 
@@ -22,6 +34,11 @@ export async function deleteProduct(id: string) {
     const res = await fetch(`/api/products/${id}`, {
         method: 'DELETE'
     });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error);
+    }
 }
 
 /**
@@ -33,6 +50,12 @@ export async function getProduct(id: string): Promise<Product> {
     const res = await fetch(`/api/products/${id}`, {
         cache: 'no-store'
     });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error);
+    }
+
     return res.json();
 }
 
@@ -44,6 +67,12 @@ export async function getAllProducts(): Promise<Product[]> {
     const res = await fetch(`/api/products`, {
         cache: 'no-store'
     });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error);
+    }
+
     return res.json();
 }
 
@@ -65,6 +94,12 @@ export async function setNameProduct({ id, newName, onUpdate }: setNameProductPa
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: newName })
     });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error);
+    }
+
     if (res.ok) {
         const result = await res.json();
         onUpdate?.(result.name);
@@ -91,6 +126,12 @@ export async function setDescriptionProduct({ id, newDescription, onUpdate }: se
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ description: newDescription })
     });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error);
+    }
+
     if (res.ok) {
         const result = await res.json();
         onUpdate?.(result.description);
@@ -117,6 +158,12 @@ export async function setPriceProduct({ id, newPrice, onUpdate }: setPriceProduc
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ description: newPrice })
     });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error);
+    }
+
     if (res.ok) {
         const result = await res.json();
         onUpdate?.(result.price);
@@ -139,6 +186,12 @@ export async function incrementProduct({ id, onUpdate }: incrementProductParams)
     const res = await fetch(`/api/products/${id}/increment`, {
         method: 'PATCH'
     });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error);
+    }
+
     if (res.ok) {
         const result = await res.json();
         onUpdate?.(result.quantity);
@@ -161,6 +214,12 @@ export async function decrementProduct({ id, onUpdate }: decrementProductParams)
     const res = await fetch(`/api/products/${id}/decrement`, {
         method: 'PATCH'
     });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error);
+    }
+
     if (res.ok) {
         const result = await res.json();
         onUpdate?.(result.quantity);
@@ -187,6 +246,12 @@ export async function setQuantityProduct({ id, newQuantity, onUpdate }: setQuant
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ quantity: newQuantity })
     });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error);
+    }
+
     if (res.ok) {
         const result = await res.json();
         onUpdate?.(result.quantity);
@@ -213,6 +278,12 @@ export async function setImageUrlProduct({ id, newImageUrl, onUpdate }: setImage
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ description: newImageUrl })
     });
+
+    if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error);
+    }
+
     if (res.ok) {
         const result = await res.json();
         onUpdate?.(result.imageUrl);
