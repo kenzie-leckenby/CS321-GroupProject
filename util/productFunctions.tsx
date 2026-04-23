@@ -1,7 +1,27 @@
 import { Product } from '@/lib/productInterface';
 
-interface getProductParams {
-    id: string;
+/**
+ * Makes an API call to the database and adds the new Product.
+ * @param product - The object of type `Product` that you want to add to the database.
+ * @returns an object, of type `Product`, which contains the new Product (with _id)
+ */
+export async function createProduct(product: Omit<Product, '_id'>): Promise<Product> {
+    const res = await fetch('/api/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(product)
+    });
+    return res.json();
+}
+
+/**
+ * Makes an API call to the database and removes the desired product.
+ * @param id - The ObjectId of the product you are trying to delete.
+ */
+export async function deleteProduct(id: string) {
+    const res = await fetch(`/api/products/${id}`, {
+        method: 'DELETE'
+    });
 }
 
 /**
@@ -9,7 +29,7 @@ interface getProductParams {
  * @param id - The ObjectId of the product you are trying to get.
  * @returns an object, of type `Product`, which contains the desired product's information.
  */
-export async function getProduct({ id }: getProductParams): Promise<Product> {
+export async function getProduct(id: string): Promise<Product> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`, {
         cache: 'no-store'
     });
