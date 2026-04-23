@@ -1,0 +1,201 @@
+import { ObjectId } from 'mongodb';
+import { Product } from '@/lib/productInterface';
+
+interface getProductParams {
+    id: ObjectId;
+}
+
+/**
+ * Makes an API call to the database and gets the JSON information of the product at the given id value.
+ * @param id - The ObjectId of the product you are trying to get.
+ * @returns an object, of type `Product`, which contains the desired product's information.
+ */
+export async function getProduct({ id }: getProductParams): Promise<Product> {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`, {
+        cache: 'no-store'
+    });
+    return res.json();
+}
+
+/**
+ * Makes an API call to the database and gets the JSON information of every product.
+ * @returns an array of objects, of type `Product`, which contains the product's information.
+ */
+export async function getAllProducts(): Promise<Product[]> {
+    const res = await fetch(`/api/products`, {
+        cache: 'no-store'
+    });
+    return res.json();
+}
+
+interface setNameProductParams {
+    id: ObjectId;
+    newName: String;
+    onUpdate?: (newName: String) => void;
+}
+
+/**
+ * Makes an API call to the database and modifies the name then optionally returns the new name.
+ * @param id - The ObjectId of the product you are trying to modify.
+ * @param newName - Value you want to assign to the name of that product.
+ * @param onUpdate - Optional return value of the name post update.
+ */
+export async function setNameProduct({ id, newName, onUpdate }: setNameProductParams) {
+    const res = await fetch(`/api/products/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: newName })
+    });
+    if (res.ok) {
+        const result = await res.json();
+        onUpdate?.(result.name);
+    }
+}
+
+
+
+interface setDescriptionProduct {
+    id: ObjectId;
+    newDescription: String;
+    onUpdate?: (newDescription: String) => void;
+}
+
+/**
+ * Makes an API call to the database and modifies the description then optionally returns the new description.
+ * @param id - The ObjectId of the product you are trying to modify.
+ * @param newDescription - Value you want to assign to the description of that product.
+ * @param onUpdate - Optional return value of the description post update.
+ */
+export async function setDescriptionProduct({ id, newDescription, onUpdate }: setDescriptionProduct) {
+    const res = await fetch(`/api/products/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description: newDescription })
+    });
+    if (res.ok) {
+        const result = await res.json();
+        onUpdate?.(result.description);
+    }
+}
+
+
+
+interface setPriceProduct {
+    id: ObjectId;
+    newPrice: Number;
+    onUpdate?: (newPrice: Number) => void;
+}
+
+/**
+ * Makes an API call to the database and modifies the price then optionally returns the new price.
+ * @param id - The ObjectId of the product you are trying to modify.
+ * @param newPrice - Value you want to assign to the price of that product.
+ * @param onUpdate - Optional return value of the price post update.
+ */
+export async function setPriceProduct({ id, newPrice, onUpdate }: setPriceProduct) {
+    const res = await fetch(`/api/products/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description: newPrice })
+    });
+    if (res.ok) {
+        const result = await res.json();
+        onUpdate?.(result.price);
+    }
+}
+
+
+
+interface incrementProductParams {
+    id: ObjectId;
+    onUpdate?: (newQuantity: Number) => void;
+}
+
+/**
+ * Makes an API call to the database and increments the quantity.
+ * @param id - The ObjectId of the product you are trying to modify.
+ * @param onUpdate - Optional return value of the quantity post update.
+ */
+export async function incrementProduct({ id, onUpdate }: incrementProductParams) {
+    const res = await fetch(`/api/products/${id}/increment`, {
+        method: 'PATCH'
+    });
+    if (res.ok) {
+        const result = await res.json();
+        onUpdate?.(result.quantity);
+    }
+}
+
+
+
+interface decrementProductParams {
+    id: ObjectId;
+    onUpdate?: (newQuantity: Number) => void;
+}
+
+/**
+ * Makes an API call to the database and decrements the quantity.
+ * @param id - The ObjectId of the product you are trying to modify.
+ * @param onUpdate - Optional return value of the quantity post update.
+ */
+export async function decrementProduct({ id, onUpdate }: decrementProductParams) {
+    const res = await fetch(`/api/products/${id}/decrement`, {
+        method: 'PATCH'
+    });
+    if (res.ok) {
+        const result = await res.json();
+        onUpdate?.(result.quantity);
+    }
+}
+
+
+
+interface setQuantityProductParams {
+    id: ObjectId,
+    newQuantity: Number,
+    onUpdate?: (newQuantity: Number) => void;
+}
+
+/**
+ * Makes an API call to the database and modifies the quantity then optionally returns the new quantity.
+ * @param id - The ObjectId of the product you are trying to modify.
+ * @param newQuantity - Value you want to assign to the quantity of that product.
+ * @param onUpdate - Optional return value of the quantity post update.
+ */
+export async function setQuantityProduct({ id, newQuantity, onUpdate }: setQuantityProductParams) {
+    const res = await fetch(`/api/products/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quantity: newQuantity })
+    });
+    if (res.ok) {
+        const result = await res.json();
+        onUpdate?.(result.quantity);
+    }
+}
+
+
+
+interface setImageUrlProduct {
+    id: ObjectId;
+    newImageUrl: String;
+    onUpdate?: (newImageUrl: String) => void;
+}
+
+/**
+ * Makes an API call to the database and modifies the imageUrl then optionally returns the new imageUrl.
+ * @param id - The ObjectId of the product you are trying to modify.
+ * @param newImageUrl - Value you want to assign to the imageUrl of that product.
+ * @param onUpdate - Optional return value of the imageUrl post update.
+ */
+export async function setImageUrlProduct({ id, newImageUrl, onUpdate }: setImageUrlProduct) {
+    const res = await fetch(`/api/products/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description: newImageUrl })
+    });
+    if (res.ok) {
+        const result = await res.json();
+        onUpdate?.(result.imageUrl);
+    }
+}
