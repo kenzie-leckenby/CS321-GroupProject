@@ -30,7 +30,7 @@ export async function deleteProduct(id: string) {
  * @returns an object, of type `Product`, which contains the desired product's information.
  */
 export async function getProduct(id: string): Promise<Product> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`, {
+    const res = await fetch(`/api/products/${id}`, {
         cache: 'no-store'
     });
     return res.json();
