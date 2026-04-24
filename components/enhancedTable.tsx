@@ -24,9 +24,9 @@ import { visuallyHidden } from '@mui/utils';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import Link from 'next/link';
-import InventoryRows from '../public/inventory.json';
-import { createElement } from '@emotion/react';
-
+import { Product } from '@/lib/productInterface';
+import { getAllProducts } from '@/util/productFunctions';
+import { CircularProgress } from '@mui/material';
 
 
 interface ButtonParams {
