@@ -21,8 +21,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 import Link from 'next/link';
 import InventoryRows from '../public/inventory.json';
+import { createElement } from '@emotion/react';
 
 
 interface Data {
@@ -45,6 +47,15 @@ function EditButton({ href }: ButtonParams) {
       <EditIcon />
     </IconButton>
   );
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function AddItemButton({ href }: ButtonParams ){
+    href = '/inventory/' + href
+    return (
+      <IconButton component={Link} href={href}>
+        <AddIcon />
+      </IconButton>
+    );
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -198,11 +209,18 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        <>
+          <Tooltip title="Add item">
+            <IconButton component={Link} href="/inventory/add">
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Filter list">
+            <IconButton>
+              <FilterListIcon />
+            </IconButton>
+          </Tooltip>
+        </>
       )}
     </Toolbar>
   );
