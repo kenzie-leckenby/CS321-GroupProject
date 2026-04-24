@@ -1,8 +1,11 @@
 import { MongoClient } from 'mongodb';
+import { setDefaultResultOrder } from "dns";
 
 const uri = process.env.MONGODB_URI!;
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
+
+setDefaultResultOrder("ipv4first");
 
 declare global {
   var _mongoClientPromise: Promise<MongoClient>;
