@@ -25,16 +25,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import Link from 'next/link';
 import InventoryRows from '../public/inventory.json';
+import { createElement } from '@emotion/react';
 
 
-interface Data {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-const rows: Data[] = InventoryRows;
 
 interface ButtonParams {
   href: string;     // What page the button links to
