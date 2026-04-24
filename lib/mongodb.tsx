@@ -1,11 +1,16 @@
 import { MongoClient } from 'mongodb';
 import { setDefaultResultOrder } from "dns";
 
+setDefaultResultOrder("ipv4first");
+
 const uri = process.env.MONGODB_URI!;
+
+if (!uri) {
+  throw new Error('Please add your MongoDB URI to .env.local');
+}
+
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
-
-setDefaultResultOrder("ipv4first");
 
 declare global {
   var _mongoClientPromise: Promise<MongoClient>;
