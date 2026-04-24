@@ -172,7 +172,7 @@ export default function PrimarySearchAppBar() {
             href={'/'}
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            Inventory Mangaement App
+            Inventory Management App
           </Typography>
           <Search>
             <SearchIconWrapper>
