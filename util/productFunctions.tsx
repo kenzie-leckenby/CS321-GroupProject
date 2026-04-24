@@ -156,7 +156,7 @@ export async function setPriceProduct({ id, newPrice, onUpdate }: setPriceProduc
     const res = await fetch(`/api/products/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ description: newPrice })
+        body: JSON.stringify({ price: newPrice })
     });
 
     if (!res.ok) {
@@ -276,7 +276,7 @@ export async function setImageUrlProduct({ id, newImageUrl, onUpdate }: setImage
     const res = await fetch(`/api/products/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ description: newImageUrl })
+        body: JSON.stringify({ imageUrl: newImageUrl })
     });
 
     if (!res.ok) {
