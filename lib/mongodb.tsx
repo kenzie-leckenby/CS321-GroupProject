@@ -3,7 +3,7 @@ import { setDefaultResultOrder } from "dns";
 
 setDefaultResultOrder("ipv4first");
 
-const uri = process.env.MONGODB_URI!;
+const uri = process.env.MONGODB_DIRECTURI!;
 
 if (!uri) {
   throw new Error('Please add your MongoDB URI to .env.local');
