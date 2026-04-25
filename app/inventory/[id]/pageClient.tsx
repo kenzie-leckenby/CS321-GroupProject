@@ -5,7 +5,7 @@ import { Container, Typography, Box, TextField, IconButton } from '@mui/material
 import { Product } from '@/lib/productInterface';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { decrementProduct, incrementProduct, setNameProduct , getProduct} from '@/util/productFunctions';
+import { decrementProduct, incrementProduct, setNameProduct , getProduct,setPriceProduct} from '@/util/productFunctions';
 import { CircularProgress } from '@mui/material';
 
 
@@ -91,6 +91,24 @@ export default function ItemPageClient({ id }: { id: string }) {
                         </IconButton>
                     </Box>
                 </Container>
+                                <Typography
+                    variant="h3"
+                    sx={{ marginBottom: 4}}
+                >
+                    <TextField
+                        id="filled-helperText"
+                        label="ProductPrice"
+                        defaultValue={price}
+                        variant="outlined"
+                        size="small"
+                        margin="none"
+                        sx={{
+                            '& .MuiInputBase-input': { fontSize: 28 },  // input text
+                            '& .MuiInputLabel-root': { fontSize: 16 },  // label text
+                        }}
+                        onChange={(e) => setPriceProduct({id: product._id,  newPrice:parseFloat( e.target.value), onUpdate: (newPrice) => setPrice(newPrice)})}
+                    />
+                </Typography>
             </Container>
         </React.Fragment>
     )
