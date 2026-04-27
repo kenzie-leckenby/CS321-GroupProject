@@ -25,6 +25,7 @@ export default function Home() {
         >
             <PageButton href="/inventory" label="To Inventory Page" />
             <PageButton href="/alerts" label="To Alerts Page" />
+            <PageButton href="/logistics" label="To Logistics Page" />
         </Container>
       </Container>
     </React.Fragment>
