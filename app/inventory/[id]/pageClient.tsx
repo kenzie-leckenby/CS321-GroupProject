@@ -5,7 +5,7 @@ import { Container, Typography, Box, TextField, IconButton } from '@mui/material
 import { Product } from '@/lib/productInterface';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { decrementProduct, incrementProduct, setNameProduct , getProduct,setPriceProduct} from '@/util/productFunctions';
+import { decrementProduct, incrementProduct, setNameProduct , getProduct, setPriceProduct, setDescriptionProduct} from '@/util/productFunctions';
 import { CircularProgress } from '@mui/material';
 
 
