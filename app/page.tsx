@@ -21,9 +21,10 @@ export default function Home() {
 
         <Container
             disableGutters
-            sx={{ display: 'flex', justifyContent: 'flex-start' }}
+            sx={{ display: 'flex', gap: 2, justifyContent: 'flex-start' }}
         >
             <PageButton href="/inventory" label="To Inventory Page" />
+            <PageButton href="/alerts" label="To Alerts Page" />
         </Container>
       </Container>
     </React.Fragment>
