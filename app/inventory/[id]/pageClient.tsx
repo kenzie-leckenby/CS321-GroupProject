@@ -5,7 +5,7 @@ import { Container, Typography, Box, TextField, IconButton } from '@mui/material
 import { Product } from '@/lib/productInterface';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { decrementProduct, incrementProduct, setNameProduct , getProduct,setPriceProduct} from '@/util/productFunctions';
+import { decrementProduct, incrementProduct, setNameProduct , getProduct, setPriceProduct, setDescriptionProduct} from '@/util/productFunctions';
 import { CircularProgress } from '@mui/material';
 
 
@@ -67,9 +67,24 @@ export default function ItemPageClient({ id }: { id: string }) {
 
                     <Typography
                         variant="h5"
-                        sx={{ marginBottom: 4, marginLeft: 16, maxWidth: '75%'}}
+                        sx={{ marginBottom: 4, maxWidth: '200%', flexGrow: 1}}
                     >
-                        {description}
+                        <TextField
+                            id="filled-helperText"
+                            label="Item Description"
+                            defaultValue={description}
+                            variant="outlined"
+                            size="medium"
+                            margin="none"
+                            multiline
+                            fullWidth
+                            sx={{
+                                '& .MuiInputBase-input': { fontSize: 28 },  // input text
+                                '& .MuiInputLabel-root': { fontSize: 16 },  // label text
+                            }}
+                            onChange={(d) => setDescriptionProduct({id: product._id, newDescription: d.target.value, onUpdate: (newDescription) => setDescription(newDescription)})}
+
+                        />
                     </Typography>
                 </Container>
 
