@@ -25,9 +25,15 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import Link from 'next/link';
 import { Product } from '@/lib/productInterface';
-import { getAllProducts } from '@/util/productFunctions';
+import { getAllProducts, createProduct } from '@/util/productFunctions';
 import { CircularProgress } from '@mui/material';
-
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 interface ButtonParams {
   href: string;     // What page the button links to
@@ -41,14 +47,83 @@ function EditButton({ href }: ButtonParams) {
     </IconButton>
   );
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function AddItemButton({ href }: ButtonParams ){
-    href = '/inventory/' + href
-    return (
-      <IconButton component={Link} href={href}>
-        <AddIcon />
-      </IconButton>
-    );
+//when add button is clicked on 
+function AddItemDialog({ addProduct }: { addProduct: (p: Product) => void }) {
+  const [open, setOpen] = React.useState(false);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const formJson = Object.fromEntries(formData.entries());
+
+    const newProduct = await createProduct({
+      name:        formJson.name as string,
+      description: formJson.description as string,
+      price:       parseFloat(formJson.price as string),
+      quantity:    parseInt(formJson.quantity as string, 10),
+      imageUrl:    formJson.imageUrl as string,
+    });
+
+    addProduct(newProduct);
+    setOpen(false);
+  };
+
+  return (
+    <React.Fragment>
+      <Tooltip title="Add item">
+        <IconButton onClick={() => setOpen(true)}>
+          <AddIcon />
+        </IconButton>
+      </Tooltip>
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogTitle>Add New Product</DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{ mb: 1 }}>Fill in the details to add a new product.</DialogContentText>
+          <form onSubmit={handleSubmit} id="add-product-form">
+            <TextField 
+              required 
+              margin="dense" 
+              name="name"
+              label="Product Name" 
+              type="text"
+              fullWidth variant="standard" />
+            <TextField 
+              required  
+              margin="dense" 
+              name="description" 
+              label="Description"  
+              type="text"   
+              fullWidth variant="standard" />
+            <TextField 
+              required 
+              margin="dense" 
+              name="price"       
+              label="Price ($)"    
+              type="number" 
+              fullWidth 
+              variant="standard"/>
+            <TextField 
+              required 
+              margin="dense" 
+              name="quantity"    
+              label="Quantity"     
+              type="number" 
+              fullWidth variant="standard" />
+            <TextField          
+              margin="dense" 
+              name="imageUrl"
+              label="Image URL"    
+              type="url"    
+              fullWidth variant="standard" />
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button type="submit" form="add-product-form" variant="contained">Add Product</Button>
+        </DialogActions>
+      </Dialog>
+    </React.Fragment>
+  );
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -159,10 +234,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
+  addProduct: (p: Product) => void;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props;
+  const { numSelected, addProduct } = props;
   return (
     <Toolbar
       sx={[
@@ -203,11 +279,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Tooltip>
       ) : (
         <>
-          <Tooltip title="Add item">
-            <IconButton component={Link} href="/inventory/add">
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
+          <AddItemDialog addProduct={addProduct} />
           <Tooltip title="Filter list">
             <IconButton>
               <FilterListIcon />
@@ -298,7 +370,9 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar 
+        numSelected={selected.length}
+        addProduct={(newProduct) => setProducts((prev) => [...prev, newProduct])} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
